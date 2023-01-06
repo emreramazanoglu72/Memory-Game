@@ -1,0 +1,112 @@
+@import url("https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    background-color: #151515;
+    font-family: "Jost", sans-serif;
+    color: white;
+    .app-container {
+        @apply relative h-screen lg:overflow-hidden lg:flex  bg-[#151515]  z-50  max-sm:flex max-sm:flex-col max-sm:justify-center
+        after:absolute after:bg-[#3452ff] after:p-7 after:h-full  after:w-[30%]  after:z-10
+        before:absolute before:bg-[#070707] before:top-0 before:right-0 before:w-[30%] before:h-full before:z-10;
+
+        &::after {
+            clip-path: polygon(100% 0, 80% 50%, 100% 100%, 0 100%, 0 0);
+            @apply absolute bg-[#3452ff] p-7 h-full  w-[30%];
+        }
+
+        &::before {
+            clip-path: polygon(20% 0, 100% 0, 100% 50%, 100% 100%, 20% 100%, 0 50%);
+            @apply absolute bg-[#070707] top-0 right-0 w-[30%] h-full z-10;
+        }
+
+        .content {
+            @apply z-50;
+        }
+    }
+}
+span {
+    @apply text-[#3452ff];
+}
+.app-content {
+    @apply relative m-auto  h-4/5 w-11/12 z-50 lg:flex gap-4;
+    .content {
+        @apply container lg:mx-4 bg-[#191919] shadow-lg overflow-y-scroll  border border-[#151515] rounded lg:flex-1 p-4;
+        .title {
+            @apply relative text-white font-bold text-4xl my-4 uppercase  text-center;
+        }
+        .game {
+            @apply grid lg:grid-cols-4 max-sm:grid-cols-2 gap-2 max-sm:max-h-[80rem];
+            .card {
+                @apply shadow-2xl flex justify-center bg-slate-800;
+                transform: rotateY(180deg);
+                animation: 2s hideCard linear;
+                transition: transform 0.5s;
+                img {
+                    @apply max-h-20 m-8 invisible select-none transform   scale-0;
+                    animation: 2s hideImage linear;
+                }
+                &-active {
+                    @apply bg-transparent translate-y-0;
+
+                    img {
+                        @apply visible scale-100;
+                    }
+                }
+
+                &-wrong {
+                    @apply bg-transparent border-2 border-red-800 rounded translate-y-0;
+
+                    img {
+                        @apply visible scale-100;
+                    }
+                }
+
+                &-success {
+                    @apply bg-transparent  border-2 border-green-800 rounded translate-y-0;
+
+                    img {
+                        @apply visible scale-100;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@keyframes hideCard {
+    0%,
+    70% {
+        transform: rotateY(0);
+    }
+    100% {
+        transform: rotateY(180deg);
+    }
+}
+
+@keyframes hideImage {
+    0%,
+    70% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(0);
+    }
+}
+
+.content {
+    scrollbar-width: thin;
+    scrollbar-color: #000 #000;
+}
+.content::-webkit-scrollbar {
+    width: 14px;
+}
+.content:-webkit-scrollbar-track {
+    background: #000;
+}
+.content::-webkit-scrollbar-thumb {
+    background-color: #222;
+    border-radius: 10px;
+}
